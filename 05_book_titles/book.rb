@@ -2,7 +2,27 @@ class Book
 # write your code here
 attr_accessor :title
 
-def initalize 
+def initialize
+  @title = title
+end
+
+def title=(title)
+  excluded_words = ["the", "a", "an", "and", "in", "of", "on"]
+  #map will check each word in each title to see if it has an excluded words. If it does then don't capitalize. 
+  #If not then capitalize it 
+  titles = title.split(' ').map { |word|
+  excluded_words.include?(word) ? word : word.capitalize
+  }.join(' ')
+  @title = titles.chr.upcase + titles[1..]
+end
+
+end
+
+
+
+
+
+=begin def initalize 
     @title = title
 end
 
@@ -35,3 +55,4 @@ array.each do |word|
 end
 
 end
+=end
