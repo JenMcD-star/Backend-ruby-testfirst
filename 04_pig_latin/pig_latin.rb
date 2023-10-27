@@ -1,84 +1,52 @@
-#write your code here
-
 def translate(string)
     words = string.split(' ')
-    vowels = ['a', 'e', 'i', 'o', 'u']
-    twoLetters = ['qu', 'ch', 'br', 'th', 'bl', 'cr', 'st', 'tw', 'ph', 'sh', 'wh','kn']
-    threeLetters = ['sch', 'thr', 'squ', 'spr', 'scr', 'spl' ]
+    vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+    twoLetters = ['qu','Qu', 'ch', 'Ch', 'Br', 'br', 'Th', 'th', 'Bl', 'bl', 'Cr','cr', 'St', 'st', 'Tw', 'tw', 'Ph','ph', 'Sh', 'sh', 'Wh', 'wh','KN' ,'kn']
+    threeLetters = ['sch', 'Sch', 'thr', 'Thr','squ','Squ', 'spr','Spr', 'scr', 'Scr', 'spl', 'Spl' ]
+    punctuation = ["!", "?","."]
+    upper = ('A'..'Z') 
 
 
       #map will check each word to see if it starts with a vowel,
     words.map { |word|
         if vowels.include?(word[0])
-          word = word + 'ay'
-
+            sentence = word + 'ay'
+            punctuation.include?(word[-1])? sentence = word[0..-2] + 'ay' + word[-1] : sentence
+            upper.include?(word[0])? (word[0].downcase; sentence.capitalize) : sentence
+          
+          
     #see if the first 3 letter match the three letter exceptions
         elsif threeLetters.include?(word[(0..2)])
-          word = word[(3..-1)]+word[(0..2)]+ 'ay'
+            puts word
+          sentence = word[(3..-1)]+word[(0..2)]+ 'ay'
+          punctuation.include?(word[-1])? sentence = word[3..-2] + word[0..3] + 'ay' + word[-1] : sentence
+          upper.include?(word[0])? (word[0].downcase; sentence.capitalize) : sentence
+
+
 
     #see if the first 2 letter match the two letter exceptions 
         elsif twoLetters.include?(word[(0..1)])
-          word = word[(2..-1)]+word[(0..1)]+'ay'
+          sentence = word[(2..-1)]+word[(0..1)]+'ay'
+          punctuation.include?(word[-1])? sentence = word[2..-2] + word[0..1] + 'ay' + word[-1] : sentence
+          
+
+
 
     #If doesn't meet any exceptions then it will take the word without the first letter, add the first letter then ay.
         else
-          word[(1..-1)]+word[0]+'ay'
+          sentence = word[(1..-1)]+word[0]+'ay'
+          punctuation.include?(word[-1])? sentence = word[1..-2] + word[0] + 'ay' + word[-1] : sentence
+          upper.include?(word[0])? (word[0].downcase; sentence = sentence.capitalize) : sentence
+
         end
     }.join(' ') #map returns an array so change it to a string
 
 end
 
- 
-
-
-=begin def rules(string)
-    string = string.split("")
-    vowels = ["a", "A", "e", "E", "i", "I", "o","O", "u", "U", "y" "Y"]
-
-    if vowels.include?(string[0])
-        string.push("ay")
-        string.join("")
-    
-    elsif string.slice(0, 2).join("").include?("qu")
-        firstCon = string.shift(2)
-        string.push(firstCon, "ay")
-        string.join("")
-    
-    elsif string.slice(0, 3).join("") === "sch"  || string.slice(0, 3).join("").include?("qu")
-        firstCon = string.shift(3)
-        string.push(firstCon, "ay")
-        string.join("")
-
-    elsif vowels.include?(string[0]) == false && vowels.include?(string[1]) == false && vowels.include?(string[2]) == false
-        firstCon = string.shift(3)
-        string.push(firstCon, "ay")
-        string.join("")
-
-    elsif vowels.include?(string[0]) == false && vowels.include?(string[1]) == false
-        firstCon = string.shift(2)
-        string.push(firstCon, "ay")
-        string.join("")
-
-    else 
-        firstCon = string.shift()
-        string.push(firstCon, "ay")
-        string.join("")
-    end 
-end
 
 
 
-def translate(string)
-    multiples = []
-    if string.include?(" ")
-        string =  string.split(" ")
-        string.each do |word|
-           multiples.push(rules(word))
-        end
-    return multiples.join(" ")
-    
-    else
-        return rules(string) 
-end
-end
-=end
+
+
+
+
